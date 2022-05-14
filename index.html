@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine is awesome</title>
+</head>
+<body>
+    
+    <div class="container mx-auto px-4">
+
+        <!-- todo app  -->
+        <h1 class="text-4xl text-center py-7 font-bold"> Alpine.js Examples</h1>
+        
+        <div class="max-w-xl mx-auto mt-10">
+            <h2 class="mb-5 font-mono font-semibold text-blue-600 text-center text-2xl"> <span class="text-yellow-600">Ex1 :</span> Simple Todo app using Alpine JS and TailwindCss</h2>
+            <div x-data="{todos : [], inputVal : ''}">
+                <form x-on:submit.prevent>
+                    <input type="text" placeholder="Write Your todos..." x-model="inputVal" class="py-2 px-3 w-full border-2 focus:outline-none">
+                    <button x-on:click="if(inputVal.trim().length) todos.push({name : inputVal, isCom : false}); inputVal = '' " class="py-2 px-3 mt-3 bg-blue-700 text-white rounded">Add Todo</button>
+                </form>
+        
+                <template x-for="todo in todos">
+                   <div class="flex items-center justify-between py-2 px-3 bg-gray-300 mt-4" x-bind:class="{'bg-red-200' : todo.isCom}">
+                       <input type="checkbox" x-model="todo.isCom">
+                       <h6 x-text="todo.name"></h6>
+                       <button x-on:click="todos = todos.filter((cv)=> cv !== todo)" class="py-1 px-2 bg-red-500 text-white rounded">Delete</button>
+                    </div>
+                </template>
+
+                <button @click="todos = []" x-show="todos.length" class="mt-4 py-2 px-3 bg-red-700 text-white rounded">Clear All</button>
+
+                <h3 x-show="todos.length > 0" class="font-mono font-semibold text-blue-600 text-center text-2xl">Total todo done
+                     <span x-text="todos.filter((todo)=> todo.isCom).length"></span>/<span x-text="todos.length"></span>
+                </h3>
+            </div>
+        </div>
+    </div>
+    
+    
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</body>
+</html>
